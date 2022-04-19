@@ -22,6 +22,9 @@
 		068C46C3280E8A6D00BFB767 /* CommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46C2280E8A6D00BFB767 /* CommonViewModel.swift */; };
 		068C46C5280E8B4400BFB767 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46C4280E8B4400BFB767 /* MainViewModel.swift */; };
 		068C46C7280E8D9400BFB767 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46C6280E8D9400BFB767 /* Scene.swift */; };
+		068C46C9280E912B00BFB767 /* TransitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46C8280E912B00BFB767 /* TransitionModel.swift */; };
+		068C46CB280E917300BFB767 /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46CA280E917300BFB767 /* SceneCoordinatorType.swift */; };
+		068C46CD280E91EA00BFB767 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46CC280E91EA00BFB767 /* SceneCoordinator.swift */; };
 		96F7A24DEC6250ACECAF19AB /* Pods_SwiftTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BA0052532D58B639CF3393 /* Pods_SwiftTemplate.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,9 @@
 		068C46C2280E8A6D00BFB767 /* CommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewModel.swift; sourceTree = "<group>"; };
 		068C46C4280E8B4400BFB767 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		068C46C6280E8D9400BFB767 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		068C46C8280E912B00BFB767 /* TransitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionModel.swift; sourceTree = "<group>"; };
+		068C46CA280E917300BFB767 /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
+		068C46CC280E91EA00BFB767 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
 		A4F5590D53FCDB8914899F0E /* Pods-SwiftTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.debug.xcconfig"; path = "Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.debug.xcconfig"; sourceTree = "<group>"; };
 		F6BA0052532D58B639CF3393 /* Pods_SwiftTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBDEF3706A554916390533E3 /* Pods-SwiftTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.release.xcconfig"; path = "Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				068C46C6280E8D9400BFB767 /* Scene.swift */,
+				068C46C8280E912B00BFB767 /* TransitionModel.swift */,
+				068C46CA280E917300BFB767 /* SceneCoordinatorType.swift */,
+				068C46CC280E91EA00BFB767 /* SceneCoordinator.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -290,9 +299,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				068C46B8280E4E8000BFB767 /* ApiType.swift in Sources */,
+				068C46CB280E917300BFB767 /* SceneCoordinatorType.swift in Sources */,
+				068C46C9280E912B00BFB767 /* TransitionModel.swift in Sources */,
 				063F10B7280DA01B00F7180F /* NetworkManager.swift in Sources */,
 				063F10A5280D985F00F7180F /* ViewController.swift in Sources */,
 				068C46C1280E880600BFB767 /* ViewModelBindableType.swift in Sources */,
+				068C46CD280E91EA00BFB767 /* SceneCoordinator.swift in Sources */,
 				068C46B6280E4B9900BFB767 /* EndPoint.swift in Sources */,
 				068C46B4280E3E9700BFB767 /* ApiKey.swift in Sources */,
 				068C46BA280E520600BFB767 /* Api.swift in Sources */,
