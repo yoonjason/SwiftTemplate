@@ -25,6 +25,7 @@
 		068C46C9280E912B00BFB767 /* TransitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46C8280E912B00BFB767 /* TransitionModel.swift */; };
 		068C46CB280E917300BFB767 /* SceneCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46CA280E917300BFB767 /* SceneCoordinatorType.swift */; };
 		068C46CD280E91EA00BFB767 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068C46CC280E91EA00BFB767 /* SceneCoordinator.swift */; };
+		1C3B58C0280EA0F500823CEB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B58BF280EA0F500823CEB /* DetailViewController.swift */; };
 		96F7A24DEC6250ACECAF19AB /* Pods_SwiftTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BA0052532D58B639CF3393 /* Pods_SwiftTemplate.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		068C46C8280E912B00BFB767 /* TransitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionModel.swift; sourceTree = "<group>"; };
 		068C46CA280E917300BFB767 /* SceneCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinatorType.swift; sourceTree = "<group>"; };
 		068C46CC280E91EA00BFB767 /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		1C3B58BF280EA0F500823CEB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A4F5590D53FCDB8914899F0E /* Pods-SwiftTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.debug.xcconfig"; path = "Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.debug.xcconfig"; sourceTree = "<group>"; };
 		F6BA0052532D58B639CF3393 /* Pods_SwiftTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBDEF3706A554916390533E3 /* Pods-SwiftTemplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftTemplate.release.xcconfig"; path = "Target Support Files/Pods-SwiftTemplate/Pods-SwiftTemplate.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				068C46BE280E845100BFB767 /* ViewModel */,
 				068C46B2280E3A4500BFB767 /* Service */,
 				063F10B6280DA01B00F7180F /* NetworkManager.swift */,
+				1C3B58BF280EA0F500823CEB /* DetailViewController.swift */,
 			);
 			path = RxSwift;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				063F10A5280D985F00F7180F /* ViewController.swift in Sources */,
 				068C46C1280E880600BFB767 /* ViewModelBindableType.swift in Sources */,
 				068C46CD280E91EA00BFB767 /* SceneCoordinator.swift in Sources */,
+				1C3B58C0280EA0F500823CEB /* DetailViewController.swift in Sources */,
 				068C46B6280E4B9900BFB767 /* EndPoint.swift in Sources */,
 				068C46B4280E3E9700BFB767 /* ApiKey.swift in Sources */,
 				068C46BA280E520600BFB767 /* Api.swift in Sources */,

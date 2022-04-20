@@ -16,13 +16,56 @@ extension UIViewController {
 }
 
 class SceneCoordinator: SceneCoordinatorType {
-    func transition(to Scene: Scene, using style: TransitionStyle, animated: Bool) -> Completable {
+    
+    private let window: UIWindow
+    private var currentVC: UIViewController
+    private let bag = DisposeBag()
+    
+    init(
+        window: UIWindow
+    ){
+        self.window = window
+        self.currentVC = window.rootViewController!
+    }
+    
+    
+    func transition(to scene: Scene, using style: TransitionStyle, animated: Bool) -> Completable {
         let subject = PublishSubject<Never>()
+        let target = scene.instantiate()
         
+        switch style {
+        case .root:
+            print(target.sceneViewController)
+            currentVC = target.sceneViewController
+            window.rootViewController = target
+            subject.onCompleted()
+        case .push:
+            guard let nav = currentVC.navigationController else {
+                subject.onError(TransistionError.navigationControllerMissing)
+                break
+            }
+            
+            nav.rx.willShow
+                .withUnretained(self)
+                .subscribe(onNext: { coordinator, event in
+                    coordinator.currentVC = event.viewController.sceneViewController
+                })
+                .disposed(by: bag)
+            
+            nav.pushViewController(target, animated: true)
+            currentVC = target.sceneViewController
+            subject.onCompleted()
+        case .modal:
+            break
+        }
+        
+        return subject.asCompletable()
     }
     
     func close(animated: Bool) -> Completable {
-        <#code#>
+        return Completable.create { [unowned self] completable in
+            return Disposables.create()
+        }
     }
     
     

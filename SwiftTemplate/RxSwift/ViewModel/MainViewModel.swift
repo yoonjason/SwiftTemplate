@@ -14,11 +14,17 @@ import NSObject_Rx
 class MainViewModel: CommonViewModel, HasDisposeBag {
     let api: Api
     let bag = DisposeBag()
-    
-    
-    
-    init(api: Api) {
+
+    init(
+        api: Api,
+        sceneCoordinator: SceneCoordinator
+    ) {
         self.api = api
-        super.init()
+        super.init(sceneCoordinator: sceneCoordinator)
+    }
+
+    var movies: Driver<MovieData?> {
+        return api.fetch(date: "20220418", type: MovieData.self)
+            .asDriver(onErrorJustReturn: nil)
     }
 }

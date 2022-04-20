@@ -22,6 +22,7 @@ class Api: ApiType {
         return urlSession.rx.data(request: request)
             .map {
                 let decoder = JSONDecoder()
+                print(<#T##items: Any...##Any#>)
                 return try decoder.decode(type, from: $0)
             }
             .catchAndReturn(nil)
