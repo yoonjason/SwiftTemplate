@@ -28,7 +28,7 @@ class SceneCoordinator: SceneCoordinatorType {
         self.currentVC = window.rootViewController!
     }
     
-    
+    @discardableResult
     func transition(to scene: Scene, using style: TransitionStyle, animated: Bool) -> Completable {
         let subject = PublishSubject<Never>()
         let target = scene.instantiate()
@@ -38,6 +38,7 @@ class SceneCoordinator: SceneCoordinatorType {
             print(target.sceneViewController)
             currentVC = target.sceneViewController
             window.rootViewController = target
+
             subject.onCompleted()
         case .push:
             guard let nav = currentVC.navigationController else {

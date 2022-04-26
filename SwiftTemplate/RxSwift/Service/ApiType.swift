@@ -11,5 +11,5 @@ import RxSwift
 protocol ApiType {
     
     @discardableResult
-    func fetch<T: Codable>(date: String, type: T.Type) -> Observable<T?> 
+    func fetch<T: Codable>(queryItems: [URLQueryItem]?, type: T.Type, endPoint: EndPoint) -> Observable<T?>
 }

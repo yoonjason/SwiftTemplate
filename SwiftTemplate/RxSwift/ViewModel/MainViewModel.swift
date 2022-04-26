@@ -24,7 +24,13 @@ class MainViewModel: CommonViewModel, HasDisposeBag {
     }
 
     var movies: Driver<MovieData?> {
-        return api.fetch(date: "20220418", type: MovieData.self)
+        print("movies")
+        let queryItems = [
+            URLQueryItem(name: "targetDt", value: "20220418")
+        ]
+        return api.fetch(queryItems: queryItems, type: MovieData.self, endPoint: EndPoint.dailyMovieListURL)
             .asDriver(onErrorJustReturn: nil)
     }
+
+
 }

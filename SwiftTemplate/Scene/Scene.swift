@@ -13,14 +13,19 @@ enum Scene {
 }
 
 extension Scene {
-    func instantiate() -> UIViewController {
+    func instantiate(from storyboard: String = "Main") -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboard, bundle: nil)
         switch self {
         case .main(let mainViewModel):
-            var vc = ViewController()
-            DispatchQueue.main.async {
-                vc.bindViewModel()
+            guard let nav = storyboard.instantiateViewController(withIdentifier: "MainNav") as? UINavigationController else {
+                fatalError()
             }
-            return vc
+            guard var vc = nav.viewControllers.first as? ViewController else { fatalError() }
+            DispatchQueue.main.async {
+                print("#####")
+                vc.bind(viewModel: mainViewModel)
+            }
+            return nav
         }
     }
 }

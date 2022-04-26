@@ -11,22 +11,23 @@ import RxSwift
 import NSObject_Rx
 
 class Api: ApiType {
-  
-    
-    
+
+
+
     private let urlSession = URLSession.shared
-    
-    
-    func fetch<T>(date: String, type: T.Type) -> Observable<T?> where T : Codable {
-        let request = composeUrlRequest(date: date)
+
+
+    func fetch<T: Codable>(queryItems: [URLQueryItem]?, type: T.Type, endPoint: EndPoint) -> Observable<T?> where T: Codable {
+        let request = composeUrlRequest(queryItems: queryItems, endPoint: endPoint)
         return urlSession.rx.data(request: request)
             .map {
-                let decoder = JSONDecoder()
-                print(<#T##items: Any...##Any#>)
-                return try decoder.decode(type, from: $0)
-            }
+            let decoder = JSONDecoder()
+            let data = try? decoder.decode(type, from: $0)
+                print("####\(data)")
+            return try decoder.decode(type, from: $0)
+        }
             .catchAndReturn(nil)
     }
-    
-    
+
+
 }
