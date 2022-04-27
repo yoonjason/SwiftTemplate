@@ -17,17 +17,19 @@ class NormalMainViewController: UIViewController {
     private var currentIndex = 0
     private var viewModel = NormalMainViewModel()
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
-
+    let searchController = UISearchController(searchResultsController: nil)
+    
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.photoList.shuffle()
         setupViews()
-        self.setupDataSource()
+        setupDataSource()
+        setupSearchController()
     }
 
-    func setupViews() {
+    private func setupViews() {
         collectionView.delegate = self
         let size = UIScreen.main.bounds.size.width / 3
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size),
@@ -44,13 +46,27 @@ class NormalMainViewController: UIViewController {
         collectionView.collectionViewLayout = layout
     }
 
-    func setupDataSource() {
-        viewModel.dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView) { (collectionView, indexPath, photo) -> UICollectionViewCell? in
+    private func setupDataSource() {
+        viewModel.dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView) { [weak self] (collectionView, indexPath, photo) -> UICollectionViewCell? in
+            guard let weakSelf = self else { return UICollectionViewCell() }
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ThumbPhotoCell", for: indexPath) as? ThumbPhotoCell else { return UICollectionViewCell() }
-            cell.setImage(photo.photoURL)
+            
+            weakSelf.viewModel.downloadImage(photo) {
+                cell.bind($0)
+            }
+
             return cell
         }
-        viewModel.fetchPhotos()
+        viewModel.fetchPhotos(.list)
+    }
+    
+    private func setupSearchController() {
+        searchController.searchBar.placeholder = "Search Photos, Journaling, growing ..."
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
 }
@@ -63,8 +79,22 @@ extension NormalMainViewController: UICollectionViewDelegate {
 
         let frameHeight = scrollView.frame.size.height
         if heightRemainFromBottom < frameHeight * 2.0 {
-            viewModel.fetchPhotos()
+            
+            viewModel.fetchPhotos(.list)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let vc = NormalDetailViewController()
+        vc.viewModel = viewModel
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension NormalMainViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
     }
 }
 

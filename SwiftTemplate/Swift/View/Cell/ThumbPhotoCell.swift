@@ -13,21 +13,15 @@ class ThumbPhotoCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         imageView.image = nil
-        imageView.alpha = 0.2
         super.prepareForReuse()
     }
     
-    func setImage(_ imageUrl: String) {
-        NormalNetworkManager.shared.getImage(imageUrl) { [weak self] image in
-            guard let weakSelf = self else { return }
-            DispatchQueue.main.async {
-                weakSelf.imageView.contentMode = .scaleAspectFill
-                UIView.animate(withDuration: 0.2, delay: 0) {
-                    weakSelf.imageView.image = image
-                    weakSelf.imageView.alpha = 1
-                } completion: { _ in
-                }
-            }
+    func bind(_ image: UIImage) {
+        self.imageView.alpha = 0.2
+        UIView.animate(withDuration: 0.2, delay: 0) {
+            self.imageView.image = image
+            self.imageView.alpha = 1
+        } completion: { _ in
         }
     }
 

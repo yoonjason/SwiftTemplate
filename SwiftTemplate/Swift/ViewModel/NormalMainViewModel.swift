@@ -14,6 +14,11 @@ enum ViewState {
     case isLoading
 }
 
+enum PhotoState {
+    case list
+    case search
+}
+
 class NormalMainViewModel {
 
     var page: Int = 0
@@ -53,21 +58,12 @@ class NormalMainViewModel {
         Photo(photoURL: "http://etoland.co.kr/data/file0207/star01/2001421875_k1HaelOg_117815410_435710664012319_3184872229464476881_n.jpg", likes: 1),
         Photo(photoURL: "http://etoland.co.kr/data/file0207/star01/2001421875_4yB1ErK0_119936385_1197076110657660_7839319653571534448_n.jpg", likes: 1),
     ]
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
     var viewState = ViewState.idle
+    var photoState = PhotoState.list
 
-    func fetchPhotos(_ page: Int = 1, _ completion: @escaping ([Photo]) -> Void) {
-        let queryItems = [
-            URLQueryItem(name: "per_page", value: "30"),
-            URLQueryItem(name: "page", value: "\(page)"),
-        ]
-        let request = composeUrlRequest(queryItems: queryItems, endPoint: EndPoint.getPhoto)
-        NormalNetworkManager.shared.get(request, type: [PhotoModel].self) {
-            completion($0.map { Photo(photoURL: $0.urls.thumb, likes: $0.likes) })
-        }
-    }
-
-    func fetchPhotos() {
+    func fetchPhotos(_ photoState: PhotoState) {
         guard viewState == .idle else { return }
         page += 1
         let queryItems = [
@@ -78,7 +74,7 @@ class NormalMainViewModel {
         viewState = .isLoading
         NormalNetworkManager.shared.get(request, type: [PhotoModel].self) {
             self.viewState = .idle
-            self.photoList.append(contentsOf: $0.map{ Photo(photoURL: $0.urls.thumb, likes: $0.likes) })
+            self.photoList.append(contentsOf: $0.map { Photo(image:UIImage(systemName: "square")!, photoURL: $0.urls.small, likes: $0.likes) })
             var snapShot = NSDiffableDataSourceSnapshot<Section, Photo>()
             if snapShot.sectionIdentifiers.isEmpty {
                 snapShot.appendSections([.main])
@@ -88,8 +84,15 @@ class NormalMainViewModel {
                 self.dataSource.apply(snapShot, animatingDifferences: true)
             }
         }
-        
     }
+    
 
-
+    func downloadImage(_ photo: Photo, completion: @escaping (UIImage) -> Void) {
+        NormalNetworkManager.shared.getImage(photo.photoURL) { image in
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
+    
 }

@@ -9,23 +9,14 @@ import UIKit
 
 class NormalDetailViewController: UIViewController {
 
-    private var viewModel = NormalDetatilViewModel()
-    var movieCode: String = ""
+    var viewModel: NormalMainViewModel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .white
 
     }
-
-    func binding() {
-        viewModel.fetchMovieDetail(movieCode) { data in
-            print("\(data)")
-//            print(data.movieNmOg, data.actors)
-        }
-    }
-
-
-
+    
 
 }

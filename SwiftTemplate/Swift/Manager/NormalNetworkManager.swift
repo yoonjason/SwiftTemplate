@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-class NormalNetworkManager {
+protocol Provider {
+    func get<T: Codable>(_ url: URLRequest, type: T.Type, completion: @escaping (T) -> Void)
+    func getImage(_ url: String, completion: @escaping (UIImage) -> Void)
+}
+
+class NormalNetworkManager: Provider {
     static let shared = NormalNetworkManager()
 
     func get<T: Codable>(_ url: URLRequest, type: T.Type, completion: @escaping (T) -> Void) {
