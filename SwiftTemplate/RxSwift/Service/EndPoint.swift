@@ -7,19 +7,16 @@
 
 import Foundation
 
-let movieURL = "boxoffice/searchDailyBoxOfficeList.json?"
-let BaseURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/"
+let BaseURL = "https://api.unsplash.com/"
 
 enum EndPoint: String {
-    case dailyMovieListURL = "boxoffice/searchDailyBoxOfficeList.json?"
-    case movieList = "movie/searchMovieList.json?"
-    case weekMovieListURL = "boxoffice/searchWeeklyBoxOfficeList.json?"
-    case movieDetailInfoURL = "movie/searchMovieInfo.json?"
+    case getPhoto = "photos?"
+    case searchPhoto = "search/photos?"
 }
 
 func composeUrlRequest(queryItems: [URLQueryItem]?, endPoint: EndPoint) -> URLRequest {
     var baseQueryItem = [
-        URLQueryItem(name: "key", value: apiKey)
+        URLQueryItem(name: "client_id", value: apiKey)
     ]
     if let queryItems = queryItems {
         baseQueryItem.append(contentsOf: queryItems)

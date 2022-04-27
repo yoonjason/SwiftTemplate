@@ -7,4 +7,4 @@
 
 import Foundation
 
-let apiKey = "3d81265c2b0975c6002f8e55d8a96606"
+let apiKey = "AqzzK8Iv3d61GEwrMMurhBnVnN1MRMoRkjDJj8bNLf0"

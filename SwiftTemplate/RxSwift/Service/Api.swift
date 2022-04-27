@@ -21,9 +21,10 @@ class Api: ApiType {
         let request = composeUrlRequest(queryItems: queryItems, endPoint: endPoint)
         return urlSession.rx.data(request: request)
             .map {
+                print($0)
             let decoder = JSONDecoder()
             let data = try? decoder.decode(type, from: $0)
-                print("####\(data)")
+            print("####\(data)")
             return try decoder.decode(type, from: $0)
         }
             .catchAndReturn(nil)

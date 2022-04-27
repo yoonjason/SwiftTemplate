@@ -28,7 +28,7 @@ class MainViewModel: CommonViewModel, HasDisposeBag {
         let queryItems = [
             URLQueryItem(name: "targetDt", value: "20220418")
         ]
-        return api.fetch(queryItems: queryItems, type: MovieData.self, endPoint: EndPoint.dailyMovieListURL)
+        return api.fetch(queryItems: queryItems, type: MovieData.self, endPoint: EndPoint.getPhoto)
             .asDriver(onErrorJustReturn: nil)
     }
 

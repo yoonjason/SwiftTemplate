@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,10 +32,55 @@
                     <view key="view" contentMode="scaleToFill" id="jS7-bH-1ke">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Gz-rZ-eX5">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="l0j-8V-FVj">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ThumbPhotoCell" reuseIdentifier="ThumbPhotoCell" id="WGZ-XU-Lsq" customClass="ThumbPhotoCell" customModule="SwiftTemplate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hkt-v6-SDv">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u0n-mo-VC9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="u0n-mo-VC9" secondAttribute="trailing" id="Hcv-g9-1Ng"/>
+                                                <constraint firstItem="u0n-mo-VC9" firstAttribute="leading" secondItem="hkt-v6-SDv" secondAttribute="leading" id="HvT-6k-GT8"/>
+                                                <constraint firstAttribute="bottom" secondItem="u0n-mo-VC9" secondAttribute="bottom" id="Iha-Fy-Klx"/>
+                                                <constraint firstItem="u0n-mo-VC9" firstAttribute="top" secondItem="hkt-v6-SDv" secondAttribute="top" id="WaL-jb-PhN"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="imageView" destination="u0n-mo-VC9" id="uch-Yf-UCM"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="NRZ-DS-as2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8Gz-rZ-eX5" secondAttribute="bottom" id="Enf-Dt-qdN"/>
+                            <constraint firstItem="8Gz-rZ-eX5" firstAttribute="trailing" secondItem="NRZ-DS-as2" secondAttribute="trailing" id="Pur-ZW-SgT"/>
+                            <constraint firstItem="8Gz-rZ-eX5" firstAttribute="top" secondItem="NRZ-DS-as2" secondAttribute="top" id="jhZ-Ta-KMf"/>
+                            <constraint firstItem="8Gz-rZ-eX5" firstAttribute="leading" secondItem="NRZ-DS-as2" secondAttribute="leading" id="mNL-xD-Dsv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Normal" id="oEn-DV-iC9"/>
+                    <connections>
+                        <outlet property="collectionView" destination="8Gz-rZ-eX5" id="bsY-F0-QYT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97u-fn-9AP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

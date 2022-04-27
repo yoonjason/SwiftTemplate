@@ -68,13 +68,27 @@ class ViewController: UIViewController, ViewModelBindableType {
             .bind(to: self.imageView.rx.image)
             .disposed(by: disposeBag)
 
-
+        let api = Api()
+        let queryItems = [
+            URLQueryItem(name: "per_page", value: "10"),
+            URLQueryItem(name: "page", value: "\(1)"),
+        ]
+        api.fetch(queryItems: queryItems, type: PhotoData.self, endPoint: EndPoint.getPhoto)
+            .subscribe(onNext:{
+                $0?.results.forEach({
+                    print($0.urls.thumb)
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        var req = URLRequest(url: URL(string: "https://api.unsplash.com/photos?client_id=AqzzK8Iv3d61GEwrMMurhBnVnN1MRMoRkjDJj8bNLf0&per_page=10&page=1")!, method: HttpMethod<PhotoData>.get)
+        
 //        api.fetch(date: "20220418", type: MovieData.self)
 //            .subscribe(onNext: {
 //                print($0?.boxOfficeResult.dailyBoxOfficeList)
 //            })
 //            .disposed(by: disposeBag)
-        let req = URLRequest(url: URL(string: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?&key=3d81265c2b0975c6002f8e55d8a96606&targetDt=20220418")!, method: HttpMethod<MovieData>.get)
+         req = URLRequest(url: URL(string: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?&key=3d81265c2b0975c6002f8e55d8a96606&targetDt=20220418")!, method: HttpMethod<MovieData>.get)
         URLSession.shared.request(req,type: MovieData.self) { (result) in
             switch result {
             case .success(let data):
