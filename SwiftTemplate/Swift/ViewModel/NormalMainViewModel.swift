@@ -85,7 +85,6 @@ class NormalMainViewModel {
             }
         }
     }
-    
 
     func downloadImage(_ photo: Photo, completion: @escaping (UIImage) -> Void) {
         NormalNetworkManager.shared.getImage(photo.photoURL) { image in

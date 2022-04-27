@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061D286028193C3E002F520D /* PresentTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D285F28193C3E002F520D /* PresentTransition.swift */; };
 		063F10A1280D985F00F7180F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063F10A0280D985F00F7180F /* AppDelegate.swift */; };
 		063F10A5280D985F00F7180F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063F10A4280D985F00F7180F /* ViewController.swift */; };
 		063F10A8280D985F00F7180F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 063F10A6280D985F00F7180F /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		061D285F28193C3E002F520D /* PresentTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentTransition.swift; sourceTree = "<group>"; };
 		063F109D280D985F00F7180F /* SwiftTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		063F10A0280D985F00F7180F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		063F10A4280D985F00F7180F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		061D285E28193C15002F520D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				061D286128193C41002F520D /* Transition */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		061D286128193C41002F520D /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				061D285F28193C3E002F520D /* PresentTransition.swift */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 		063F1094280D985F00F7180F = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +202,7 @@
 		063F10B5280D9AC200F7180F /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				061D285E28193C15002F520D /* Common */,
 				065CA05B2817CF50001F94AA /* Manager */,
 				065CA0482816679E001F94AA /* Model */,
 				065CA0452816670E001F94AA /* View */,
@@ -548,6 +567,7 @@
 				065CA04C28169A26001F94AA /* NormalDetailViewController.swift in Sources */,
 				065CA0842817E61F001F94AA /* LogOutputStream.swift in Sources */,
 				068C46B4280E3E9700BFB767 /* ApiKey.swift in Sources */,
+				061D286028193C3E002F520D /* PresentTransition.swift in Sources */,
 				065CA0852817E623001F94AA /* String+extension.swift in Sources */,
 				065CA0652817CFC1001F94AA /* ImageCacheManager.swift in Sources */,
 				065CA03A28162827001F94AA /* Network.swift in Sources */,

@@ -18,6 +18,7 @@ class NormalMainViewController: UIViewController {
     private var viewModel = NormalMainViewModel()
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
     let searchController = UISearchController(searchResultsController: nil)
+    let presentTransition = PresentTransition()
     
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -98,3 +99,12 @@ extension NormalMainViewController: UISearchBarDelegate {
     }
 }
 
+
+extension NormalMainViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let selectedIndexPath = collectionView.indexPathsForSelectedItems, let selectedCell = collectionView.cellForItem(at: selectedIndexPath.first!) as? ThumbPhotoCell,
+              let selectedCellSuperView = selectedCell.superview else { return nil }
+        
+        return presentTransition
+    }
+}
