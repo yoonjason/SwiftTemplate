@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RxDataSources
+
 
 enum Section: CaseIterable {
     case main
@@ -18,8 +18,9 @@ class NormalMainViewController: UIViewController {
     private var viewModel = NormalMainViewModel()
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
     let searchController = UISearchController(searchResultsController: nil)
-    let presentTransition = PresentTransition()
-    
+//    var animator = CustomTransitionAnimator(animationType: .present)
+    private var selectedIndexPath = IndexPath()
+
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -34,11 +35,11 @@ class NormalMainViewController: UIViewController {
         collectionView.delegate = self
         let size = UIScreen.main.bounds.size.width / 3
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size),
-                                              heightDimension: .absolute(size))
+            heightDimension: .absolute(size))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .absolute(size))
+            heightDimension: .absolute(size))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -51,7 +52,7 @@ class NormalMainViewController: UIViewController {
         viewModel.dataSource = UICollectionViewDiffableDataSource<Section, Photo>(collectionView: collectionView) { [weak self] (collectionView, indexPath, photo) -> UICollectionViewCell? in
             guard let weakSelf = self else { return UICollectionViewCell() }
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ThumbPhotoCell", for: indexPath) as? ThumbPhotoCell else { return UICollectionViewCell() }
-            
+
             weakSelf.viewModel.downloadImage(photo) {
                 cell.bind($0)
             }
@@ -60,7 +61,7 @@ class NormalMainViewController: UIViewController {
         }
         viewModel.fetchPhotos(.list)
     }
-    
+
     private func setupSearchController() {
         searchController.searchBar.placeholder = "Search Photos, Journaling, growing ..."
         searchController.hidesNavigationBarDuringPresentation = true
@@ -69,7 +70,7 @@ class NormalMainViewController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
-    
+
 }
 
 extension NormalMainViewController: UICollectionViewDelegate {
@@ -80,22 +81,35 @@ extension NormalMainViewController: UICollectionViewDelegate {
 
         let frameHeight = scrollView.frame.size.height
         if heightRemainFromBottom < frameHeight * 2.0 {
-            
+
             viewModel.fetchPhotos(.list)
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-        let vc = NormalDetailViewController()
+        
+        self.selectedIndexPath = indexPath
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ThumbPhotoCell", for: indexPath) as? ThumbPhotoCell else { return }
+        let cellOriginPoint = cell.imageView?.convert(cell.center, to: nil)
+        guard let cellOriginFrame = cell.imageView?.convert(cell.frame, to: nil), let naviHeight = navigationController?.navigationBar.largeTitleHeight else { return }
+        let cellFrame = CGRect(x: cellOriginFrame.origin.x, y: cellOriginFrame.origin.y + naviHeight, width: cellOriginFrame.size.width, height: cellOriginFrame.size.height)
+        
+//        animator.setFrame(frame: cellFrame)
+//        animator.setPoint(point: cellOriginPoint)
+        
+       
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NormalDetail") as! NormalDetailViewController
         vc.viewModel = viewModel
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.transitioningDelegate = self
+        vc.modalPresentationStyle = .custom
+        self.present(vc, animated: true)
     }
 }
 
 extension NormalMainViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
+
     }
 }
 
@@ -103,8 +117,8 @@ extension NormalMainViewController: UISearchBarDelegate {
 extension NormalMainViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let selectedIndexPath = collectionView.indexPathsForSelectedItems, let selectedCell = collectionView.cellForItem(at: selectedIndexPath.first!) as? ThumbPhotoCell,
-              let selectedCellSuperView = selectedCell.superview else { return nil }
-        
-        return presentTransition
+            let selectedCellSuperView = selectedCell.superview else { return nil }
+        Debug.print(selectedIndexPath.first?.row)
+        return CustomTransitionAnimator(animationType: .present, selectedIndexPath: self.selectedIndexPath)
     }
 }
