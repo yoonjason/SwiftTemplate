@@ -10,12 +10,14 @@ import UIKit
 class ThumbPhotoCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
-    
+
+    var tapped: (UIImage) -> Void = { _ in }
+
     override func prepareForReuse() {
         imageView.image = nil
         super.prepareForReuse()
     }
-    
+
     func bind(_ image: UIImage) {
         self.imageView.alpha = 0.2
         UIView.animate(withDuration: 0.2, delay: 0) {

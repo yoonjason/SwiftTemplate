@@ -6,24 +6,28 @@
 //
 
 import Foundation
+import UIKit
 
 
-class NormalDetatilViewModel {
+class NormalDetatilViewModel: NormalBaseViewModel {
 
-    func fetchMovieDetail(_ movideCode: String, _ completion: @escaping (MovieDetail) -> Void) {
-        let queryItem = [URLQueryItem(name: "movieCd", value: movideCode)]
-        let request = composeUrlRequest(queryItems: queryItem, endPoint: EndPoint.getPhoto)
-        print(request.url)
-        NormalNetworkManager.shared.get(request, type: MovieDetailResult.self) { result in
-            
-//            let result = $0.movieInfo
-//            completion(MovieDetail(
-//                movieCd: result.movieCd, movieNm: result.movieNm,
-//                movieNmEn: result.movieNmEn, movieNmOg: result.movieNmOg,
-//                openDt: result.movieNmOg, genreNm: result.genreNm,
-//                peopleNm: result.peopleNm, actors: result.actors
-//            ))
-        }
+    var photoList: Array<Photo> = [Photo]()
+    var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    var selectedIndexPath = IndexPath()
+
+    func fetchPhotos(_ photoState: PhotoState) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Photo>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(photoList, toSection: .main)
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
 
+    func downloadImage(_ photo: Photo, completion: @escaping (UIImage) -> Void) {
+        Debug.print(#function, photo.photoURL)
+        NormalNetworkManager.shared.getImage(photo.photoURL) { image in
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
 }

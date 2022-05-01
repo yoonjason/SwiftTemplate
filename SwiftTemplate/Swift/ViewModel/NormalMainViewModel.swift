@@ -19,7 +19,7 @@ enum PhotoState {
     case search
 }
 
-class NormalMainViewModel {
+class NormalMainViewModel: NormalBaseViewModel {
 
     var page: Int = 0
 //    var photoList: Array<Photo> = [Photo]()
@@ -60,6 +60,7 @@ class NormalMainViewModel {
     ]
     
     var dataSource: UICollectionViewDiffableDataSource<Section, Photo>!
+    var selectedIndexPath = IndexPath()
     var viewState = ViewState.idle
     var photoState = PhotoState.list
 
@@ -67,14 +68,17 @@ class NormalMainViewModel {
         guard viewState == .idle else { return }
         page += 1
         let queryItems = [
-            URLQueryItem(name: "per_page", value: "30"),
+            URLQueryItem(name: "per_page", value: "10"),
             URLQueryItem(name: "page", value: "\(page)"),
         ]
         let request = composeUrlRequest(queryItems: queryItems, endPoint: EndPoint.getPhoto)
         viewState = .isLoading
         NormalNetworkManager.shared.get(request, type: [PhotoModel].self) {
             self.viewState = .idle
-            self.photoList.append(contentsOf: $0.map { Photo(image:UIImage(systemName: "square")!, photoURL: $0.urls.small, likes: $0.likes) })
+            self.photoList.append(contentsOf: $0.map { Photo(image:
+                                                                NormalNetworkManager.shared.getImage($0.urls.thumb),
+                                                             photoURL: $0.urls.small,
+                                                             likes: $0.likes) })
             var snapShot = NSDiffableDataSourceSnapshot<Section, Photo>()
             if snapShot.sectionIdentifiers.isEmpty {
                 snapShot.appendSections([.main])

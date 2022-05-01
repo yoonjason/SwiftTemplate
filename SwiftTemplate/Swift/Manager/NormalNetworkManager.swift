@@ -15,10 +15,10 @@ protocol Provider {
 
 class NormalNetworkManager: Provider {
     static let shared = NormalNetworkManager()
-
+    let urlSession = URLSession.shared
     func get<T: Codable>(_ url: URLRequest, type: T.Type, completion: @escaping (T) -> Void) {
         Debug.print(url.url)
-        URLSession.shared.request(url, type: type) { (result) in
+        urlSession.request(url, type: type) { (result) in
             switch result {
             case .success(let data):
                 completion(data)
@@ -37,6 +37,19 @@ class NormalNetworkManager: Provider {
                 print(error)
             }
         }
+    }
+    
+    func getImage(_ url: String) -> UIImage? {
+        var resultImage = UIImage()
+        urlSession.bindImage(url) { result in
+            switch result {
+            case .success(let image):
+                resultImage = image
+            case .failure(let error):
+                print(error)
+            }
+        }
+        return resultImage
     }
 
 }
